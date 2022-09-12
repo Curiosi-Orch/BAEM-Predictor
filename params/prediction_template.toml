@@ -1,0 +1,73 @@
+[hyper_parameters]
+num_epoch = 1000
+batch_size = 64
+train_ratio = 0.8
+max_patience = 60
+lr_batch_rate = 0.0001
+warm_up_epoch = 10
+
+[optimizer]
+# "Adam" or "SGD"
+optimizer_type = "Adam"
+# "ReduceLPROnPlateau"
+scheduler_type = "ReduceLROnPlateau"
+# "min" or "max"
+scheduler_mode = "min"
+scheduler_factor = 0.5
+scheduler_patience = 5
+scheduler_verbose = false
+scheduler_threshold = 0.0001
+scheduler_threshold_mode = "rel"
+scheduler_cooldown = 0
+scheduler_min_lr = 1e-8
+scheduler_eps = 1e-8
+
+[model]
+# "MeanSquaredError" or "CrossEntropy" or "WeightedSquaredError" or "ShapeTimeDistortion"
+loss_function_type = "MeanSquaredError"
+shape_distortion_alpha = 1.0
+# move output to the end of input in loss calculation
+loss_calibration = true
+latent_dimension = 32
+dropout = 0.0
+use_VAE = true
+
+[model.encoder]
+output_length = 64
+input_dimension = 16
+output_dimension = 8
+num_transformer_layers = 2
+num_lstm_layers = 2
+num_transformer_heads = 4
+lstm_hidden_dimension = 64
+transformer_feedforward_dimension = 128
+conv_kernels = [3,5,7]
+lstm_bidirectional = true
+
+[data]
+# "delay" or "joint" or "position"
+data_type = "delay"
+# "MaxMin" or "Standard"
+scaler_type = "MaxMin"
+# "Average" or "Lowpass" or "None"
+filter_type = "Lowpass"
+# average filter parameters
+average_kernel_size = 20
+# butter lowpass filter parameters
+frequency_lowpass = 0.5
+frequency_sample = 100
+# relative to the start of the start of input sequence.
+relative = true
+
+input_length = 32
+output_length = 18
+input_dimension = 1
+output_dimension = 1
+input_sample_step = 32
+output_sample_step = 16
+target_indices = [0]
+
+train_data_file = "delay_20220825/D5/delay_1.csv"
+test_data_file = "delay_20220825/D5/delay_2.csv"
+
+[results]
